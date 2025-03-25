@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const connection = require("./Config/db");
+const { json } = require("express");
 const upload = require("./Multer/upload.multer"); // ✅ Import Cloudinary Multer config
 const participentRoutes = require("./routes/participent.routes");
 const joinRoutes = require("./routes/joinRoom.routes");
