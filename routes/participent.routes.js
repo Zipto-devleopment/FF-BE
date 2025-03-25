@@ -1,24 +1,11 @@
 const express = require("express");
-const multer = require("multer");
-const path = require("path");
 const { userDetails, getuserDetails, getAll5rsuserDetails, getAll10rsuserDetails, getAll20rsuserDetails, deleteAll5rsuserDetails, deleteAll10rsuserDetails, deleteAll20rsuserDetails, deleteParticipantById } = require("../controllers/participent.controller");
 const ParticipentModel = require("../models/participent.model");
-
+const upload = require("../Multer/upload.multer"); // ✅ Import Cloudinary Multer config
 
 const participentRoutes = express.Router();
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "uploads/"); 
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); 
-    }
-});
-
-const upload = multer({ storage });
-
-// Update route to handle file uploads
+// ✅ Use Cloudinary upload instead of local disk storage
 participentRoutes.post("/userDetails/rs5", upload.single("screenshot"), userDetails);
 participentRoutes.post("/userDetails/rs10", upload.single("screenshot"), userDetails);
 participentRoutes.post("/userDetails/rs20", upload.single("screenshot"), userDetails);
@@ -101,5 +88,5 @@ participentRoutes.post("/verifyUser", async (req, res) => {
   });
   
 
-
+// Other routes remain unchanged
 module.exports = participentRoutes;

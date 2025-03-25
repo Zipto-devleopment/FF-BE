@@ -3,7 +3,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const connection = require("./Config/db");
-const { json } = require("express");
 const upload = require("./Multer/upload.multer"); // ✅ Import Cloudinary Multer config
 const participentRoutes = require("./routes/participent.routes");
 const joinRoutes = require("./routes/joinRoom.routes");
@@ -13,24 +12,33 @@ dotenv.config();
 
 const app = express();
 
+// CORS Configuration
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
-app.use(cors({
-  origin: ["http://localhost:5173", "https://freefireturnament-lilq6k5za-niks-nimjes-projects.vercel.app","https://freefireturnament.vercel.app","https://freefireturnament-git-main-niks-nimjes-projects.vercel.app"],
-  credentials:true
-}));
-app.use(json());
+// Middleware for parsing JSON and form-data
+app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Static files (for serving local uploads, but not needed for Cloudinary)
+app.use("/uploads", express.static("uploads"));
 
-app.use("/participent",participentRoutes)
-app.use("/joinRoom",joinRoutes)
+// Routes
+app.use("/participent", participentRoutes);
+app.use("/joinRoom", joinRoutes);
 app.use("/contact", contactRoutes);
 
-app.get("/",(req,res)=>{
-  res.send("welcome to my api")
-})
+// Test API
+app.get("/", (req, res) => {
+  res.send("🚀 Welcome to my API");
+});
 
+// ✅ Add Cloudinary upload route (for testing)
 app.post("/upload", upload.single("screenshot"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "❌ No file uploaded" });
@@ -38,12 +46,13 @@ app.post("/upload", upload.single("screenshot"), (req, res) => {
   res.json({ message: "✅ File uploaded successfully", fileUrl: req.file.path });
 });
 
-app.listen(process.env.PORT || 3000 ,async()=>{
+// Start Server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, async () => {
   try {
-      await connection
-      console.log(`server is running ${process.env.PORT}`)
-    
+    await connection; // Ensure DB is connected before starting
+    console.log(`🚀 Server is running on port ${PORT}`);
   } catch (error) {
-      console.log(error)
+    console.error("❌ Database Connection Error:", error);
   }
-})
+});
