@@ -20,8 +20,8 @@ const upload = multer({ storage });
 
 // Update route to handle file uploads
 participentRoutes.post("/userDetails/rs5", upload.single("screenshot"), userDetails);
-// participentRoutes.post("/userDetails/rs10", upload.single("screenshot"), userDetails);
-// participentRoutes.post("/userDetails/rs20", upload.single("screenshot"), userDetails);
+participentRoutes.post("/userDetails/rs10", upload.single("screenshot"), userDetails);
+participentRoutes.post("/userDetails/rs20", upload.single("screenshot"), userDetails);
 participentRoutes.get("/getUserDetails", getuserDetails);
 participentRoutes.get("/getAll5rsUserDetails", getAll5rsuserDetails);
 participentRoutes.get("/getAll10rsUserDetails", getAll10rsuserDetails);

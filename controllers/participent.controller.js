@@ -1,37 +1,20 @@
 const ParticipentModel = require("../models/participent.model");
 
-
-// const userDetails = async (req, res) => {
-//     const { GameFee, GameID, UpiID  } = req.body;
-//     const screenshot = req.file ? req.file.path : null; 
-
-//     if (!GameFee || !GameID || !UpiID || !screenshot) {
-//         return res.status(400).send("Please fill all details. Screenshot is required.");
-//     }
-
-//     try {
-//         await ParticipentModel.create({ GameFee , GameID, UpiID, screenshot });
-//         res.send("You are a participant successfully");
-//     } catch (error) {
-//         res.status(500).send("Error: Not a participant");
-//     }
-    
-// };
-
 const userDetails = async (req, res) => {
-    console.log("Request Body:", req.body);  // Debugging
-    console.log("Uploaded File:", req.file); // Debugging
+    console.log("File Uploaded to Cloudinary:", req.file);
 
     const { GameFee, GameID, UpiID } = req.body;
-    const screenshot = req.file ? req.file.path : null; 
+    const screenshot = req.file.path; // Cloudinary URL
+    // const screenshot = "cloudinary://<your_api_key>:<your_api_secret>@div5bhgoq"; 
+
 
     if (!GameFee || !GameID || !UpiID || !screenshot) {
         return res.status(400).json({ message: "❌ Please fill all details. Screenshot is required." });
     }
 
     try {
-        await ParticipentModel.create({  GameID, UpiID, GameFee, screenshot });
-        res.json({ message: " You are a participant successfully" });
+        await ParticipentModel.create({ GameID, UpiID, GameFee, screenshot });
+        res.json({ message: "✅ You are a participant successfully" });
     } catch (error) {
         console.error("Database Error:", error);
         res.status(500).json({ message: "❌ Error: Not a participant", error: error.message });
