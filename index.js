@@ -14,7 +14,7 @@ const app = express();
 
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://freefireturnament.vercel.app","https://freefireturnament-niks-nimjes-projects.vercel.app","https://freefireturnament-git-main-niks-nimjes-projects.vercel.app"],
+  origin: ["http://localhost:5173", "https://freefireturnament-lilq6k5za-niks-nimjes-projects.vercel.app/"],
   credentials:true
 }));
 app.use(json());
