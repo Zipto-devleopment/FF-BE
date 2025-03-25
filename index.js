@@ -39,10 +39,18 @@ app.get("/", (req, res) => {
 });
 
 // ✅ Add Cloudinary upload route (for testing)
+// app.post("/upload", upload.single("screenshot"), (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).json({ message: "❌ No file uploaded" });
+//   }
+//   res.json({ message: "✅ File uploaded successfully", fileUrl: req.file.path });
+// });
+
 app.post("/upload", upload.single("screenshot"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "❌ No file uploaded" });
   }
+  console.log("Uploaded File Response:", JSON.stringify(req.file, null, 2)); // ✅ Better Logging
   res.json({ message: "✅ File uploaded successfully", fileUrl: req.file.path });
 });
 
