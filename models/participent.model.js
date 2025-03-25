@@ -5,7 +5,7 @@ const ParticipentSchema = new mongoose.Schema(
         GameFee: String,
         GameID: String,
         UpiID: String,
-        screenshot: String, 
+        UTRNumber: String, 
         verified: { type: Boolean, default: false }
     },
     {

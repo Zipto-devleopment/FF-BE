@@ -1,14 +1,13 @@
 const express = require("express");
 const { userDetails, getuserDetails, getAll5rsuserDetails, getAll10rsuserDetails, getAll20rsuserDetails, deleteAll5rsuserDetails, deleteAll10rsuserDetails, deleteAll20rsuserDetails, deleteParticipantById } = require("../controllers/participent.controller");
 const ParticipentModel = require("../models/participent.model");
-const upload = require("../Multer/upload.multer"); // ✅ Import Cloudinary Multer config
 
 const participentRoutes = express.Router();
 
 // ✅ Use Cloudinary upload instead of local disk storage
-participentRoutes.post("/userDetails/rs5", upload.single("screenshot"), userDetails);
-participentRoutes.post("/userDetails/rs10", upload.single("screenshot"), userDetails);
-participentRoutes.post("/userDetails/rs20", upload.single("screenshot"), userDetails);
+participentRoutes.post("/userDetails/rs5", userDetails);
+participentRoutes.post("/userDetails/rs10", userDetails);
+participentRoutes.post("/userDetails/rs20", userDetails);
 participentRoutes.get("/getUserDetails", getuserDetails);
 participentRoutes.get("/getAll5rsUserDetails", getAll5rsuserDetails);
 participentRoutes.get("/getAll10rsUserDetails", getAll10rsuserDetails);

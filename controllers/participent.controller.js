@@ -1,19 +1,15 @@
 const ParticipentModel = require("../models/participent.model");
 
 const userDetails = async (req, res) => {
-    console.log("File Uploaded to Cloudinary:", req.file);
 
-    const { GameFee, GameID, UpiID } = req.body;
-    const screenshot = req.file.path; // Cloudinary URL
-    // const screenshot = "cloudinary://<your_api_key>:<your_api_secret>@div5bhgoq"; 
+    const { GameFee, GameID, UpiID ,UTRNumber } = req.body;
 
-
-    if (!GameFee || !GameID || !UpiID || !screenshot) {
-        return res.status(400).json({ message: "❌ Please fill all details. Screenshot is required." });
+    if (!GameFee || !GameID || !UpiID || !UTRNumber) {
+        return res.status(400).json({ message: "❌ Please fill all details. UTR is required." });
     }
 
     try {
-        await ParticipentModel.create({ GameID, UpiID, GameFee, screenshot });
+        await ParticipentModel.create({ GameID, UpiID, GameFee, UTRNumber });
         res.json({ message: "✅ You are a participant successfully" });
     } catch (error) {
         console.error("Database Error:", error);
