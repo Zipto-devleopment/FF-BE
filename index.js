@@ -22,7 +22,6 @@ app.use(json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use("/uploads", express.static("uploads"));
 
 app.use("/participent",participentRoutes)
 app.use("/joinRoom",joinRoutes)

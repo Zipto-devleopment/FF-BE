@@ -4,7 +4,7 @@ const userDetails = async (req, res) => {
     console.log("File Uploaded to Cloudinary:", req.file);
 
     const { GameFee, GameID, UpiID } = req.body;
-    const screenshot = req.file ? req.file.path : null; // ✅ Get Cloudinary Image URL
+    const screenshot = req.file ? req.file.path : null; // ✅ Cloudinary gives a URL
 
     if (!GameFee || !GameID || !UpiID || !screenshot) {
         return res.status(400).json({ message: "❌ Please fill all details. Screenshot is required." });
@@ -18,6 +18,7 @@ const userDetails = async (req, res) => {
         res.status(500).json({ message: "❌ Error: Not a participant", error: error.message });
     }
 };
+
 
 
 
