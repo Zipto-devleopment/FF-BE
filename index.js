@@ -46,12 +46,24 @@ app.get("/", (req, res) => {
 //   res.json({ message: "✅ File uploaded successfully", fileUrl: req.file.path });
 // });
 
-app.post("/upload", upload.single("screenshot"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: "❌ No file uploaded" });
-  }
-  console.log("Uploaded File Response:", JSON.stringify(req.file, null, 2)); // ✅ Better Logging
-  res.json({ message: "✅ File uploaded successfully", fileUrl: req.file.path });
+app.post("/upload", (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) {
+      console.error("Upload Error:", err);
+      return res.status(500).json({ error: err.message });
+    }
+
+    // ✅ Ensure `req.file` exists
+    if (!req.file) {
+      return res.status(400).json({ message: "❌ No file uploaded" });
+    }
+
+    console.log("✅ Upload Success:", JSON.stringify(req.file, null, 2));
+    res.json({
+      message: "✅ File uploaded successfully",
+      fileUrl: req.file.path
+    });
+  });
 });
 
 // Start Server
