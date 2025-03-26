@@ -14,7 +14,7 @@ const app = express();
 // CORS Configuration
 app.use(
   cors({
-    origin: ["http://localhost:5173","freefireindia-git-main-niks-nimjes-projects.vercel.app","freefireindia-dntpz77dz-niks-nimjes-projects.vercel.app","freefireindia.vercel.app","freefireindia-niks-nimjes-projects.vercel.app"],
+    origin: ["http://localhost:5173","https://freefireindia-git-main-niks-nimjes-projects.vercel.app","https://freefireindia-dntpz77dz-niks-nimjes-projects.vercel.app","https://freefireindia.vercel.app","https://freefireindia-niks-nimjes-projects.vercel.app"],
     credentials: true,
   })
 );
