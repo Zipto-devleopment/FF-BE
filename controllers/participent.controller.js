@@ -2,14 +2,14 @@ const ParticipentModel = require("../models/participent.model");
 
 const userDetails = async (req, res) => {
 
-    const { GameFee, GameID, UpiID ,UTRNumber } = req.body;
-
-    if (!GameFee || !GameID || !UpiID || !UTRNumber) {
+    const {GameFee,GameID,UpiID,UtrNumber}=req.body
+    
+    if (!GameFee || !GameID || !UpiID || !UtrNumber) {
         return res.status(400).json({ message: "❌ Please fill all details. UTR is required." });
     }
 
     try {
-        await ParticipentModel.create({ GameID, UpiID, GameFee, UTRNumber });
+        await ParticipentModel.create({ GameID, UpiID, GameFee, UtrNumber });
         res.json({ message: "✅ You are a participant successfully" });
     } catch (error) {
         console.error("Database Error:", error);
